@@ -30,7 +30,7 @@ ENV PATH=$PATH:$JAVA_HOME/bin \
 # environment variables specific to Jira config files in s3
 ENV JIRA_CONFIG jira.tgz \
     ENVIRONMENT   test   \
-    DATABASE_NAME jiradb \
+    DATABASE_NAME jiradb 
 
 COPY imagescripts ${JIRA_SCRIPTS}
 
