@@ -28,9 +28,9 @@ ENV PATH=$PATH:$JAVA_HOME/bin \
     LANG=${LANG_LANGUAGE}_${LANG_COUNTRY}.UTF-8
 
 # environment variables specific to Jira config files in s3
-ENV JIRA_CONFIG jira.tgz \
-    ENVIRONMENT   test   \
-    DATABASE_NAME jiradb 
+ENV JIRA_CONFIG=jira.tgz \
+    ENVIRONMENT=test   \
+    DATABASE_NAME=jiradb
 
 COPY imagescripts ${JIRA_SCRIPTS}
 
