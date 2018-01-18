@@ -126,6 +126,9 @@ DATABASE_NAME=${DATABASE_NAME}
             -e "s/DATABASE_PASSWORD/$DATABASE_PASSWORD/" \
             -e "s/DATABASE_NAME/$DATABASE_NAME/" dbconfig.xml
 
+/bin/rm -rf ${JIRA_CONFIG}
+# End of aws section
+
 if [ "$1" = 'jira' ] || [ "${1:0:1}" = '-' ]; then
   waitForDB
   /bin/bash ${JIRA_SCRIPTS}/launch.sh
