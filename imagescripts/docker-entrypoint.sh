@@ -110,7 +110,6 @@ echo "${TARGET_PROPERTY} = ${jira_logfile}" >> ${JIRA_INSTALL}/conf/logging.prop
 
 # Download Atlassian required config files from s3
 /usr/bin/aws s3 cp s3://fathom-atlassian-ecs/jira/${JIRA_CONFIG} ${JIRA_HOME}
-/usr/bin/tar -xzf ${JIRA_CONFIG} -C ${JIRA_HOME}
 
 # Pull Atlassian secrets from parameter store
 AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
@@ -124,9 +123,8 @@ DATABASE_NAME=${DATABASE_NAME}
 /bin/sed -i -e "s/DATABASE_ENDPOINT/$DATABASE_ENDPOINT/" \
             -e "s/DATABASE_USER/$DATABASE_USER/" \
             -e "s/DATABASE_PASSWORD/$DATABASE_PASSWORD/" \
-            -e "s/DATABASE_NAME/$DATABASE_NAME/" dbconfig.xml
+            -e "s/DATABASE_NAME/$DATABASE_NAME/" ${JIRA_CONFIG}
 
-/bin/rm -rf ${JIRA_CONFIG}
 # End of aws section
 
 if [ "$1" = 'jira' ] || [ "${1:0:1}" = '-' ]; then
