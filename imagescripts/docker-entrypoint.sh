@@ -111,7 +111,7 @@ echo "${TARGET_PROPERTY} = ${jira_logfile}" >> ${JIRA_INSTALL}/conf/logging.prop
 # Download Atlassian required config files from s3
 /usr/bin/aws s3 cp s3://fathom-atlassian-ecs/jira/${JIRA_CONFIG} ${JIRA_HOME}
 
-# Pull Atlassian secrets from parameter store
+# Pull Atlassian secrets from parameter store:
 AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
 AWSREGION=${AZ::-1}
 
