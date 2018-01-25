@@ -114,6 +114,12 @@ LABEL com.blacklabelops.application.jira.version=$JIRA_PRODUCT-$JIRA_VERSION \
       com.blacklabelops.application.jira.groupid=$CONTAINER_GID \
       com.blacklabelops.image.builddate.jira=${BUILD_DATE}
 
+# Install aws cli:
+USER root
+RUN apk add --update \
+    python \
+    py-pip
+RUN pip install awscli
 
 USER jira
 WORKDIR ${JIRA_HOME}

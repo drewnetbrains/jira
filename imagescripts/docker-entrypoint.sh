@@ -108,6 +108,28 @@ TARGET_PROPERTY=4host-manager.org.apache.juli.AsyncFileHandler.directory
 sed -i "/${TARGET_PROPERTY}/d" ${JIRA_INSTALL}/conf/logging.properties
 echo "${TARGET_PROPERTY} = ${jira_logfile}" >> ${JIRA_INSTALL}/conf/logging.properties
 
+<<<<<<< HEAD
+=======
+# Download Atlassian required config files from s3
+/usr/bin/aws s3 cp s3://fathom-atlassian-ecs/jira/${JIRA_CONFIG} ${JIRA_HOME}
+
+# Pull Atlassian secrets from parameter store:
+AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+AWSREGION=${AZ::-1}
+
+DATABASE_ENDPOINT=$(aws ssm get-parameters --names "${ENVIRONMENT}.atlassian.rds.db_host" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
+DATABASE_USER=$(aws ssm get-parameters --names "${ENVIRONMENT}.atlassian.rds.db_user" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
+DATABASE_PASSWORD=$(aws ssm get-parameters --names "${ENVIRONMENT}.atlassian.rds.password" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
+DATABASE_NAME=${DATABASE_NAME}
+
+/bin/sed -i -e "s/DATABASE_ENDPOINT/$DATABASE_ENDPOINT/" \
+            -e "s/DATABASE_USER/$DATABASE_USER/" \
+            -e "s/DATABASE_PASSWORD/$DATABASE_PASSWORD/" \
+            -e "s/DATABASE_NAME/$DATABASE_NAME/" ${JIRA_CONFIG}
+
+# End of aws section
+
+>>>>>>> aws
 if [ "$1" = 'jira' ] || [ "${1:0:1}" = '-' ]; then
   waitForDB
   /bin/bash ${JIRA_SCRIPTS}/launch.sh
