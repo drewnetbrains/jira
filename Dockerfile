@@ -27,7 +27,7 @@ ENV JAVA_HOME=$JIRA_INSTALL/jre
 ENV PATH=$PATH:$JAVA_HOME/bin \
     LANG=${LANG_LANGUAGE}_${LANG_COUNTRY}.UTF-8
 
-# environment variables specific to Jira config files in s3
+# environment variables specific to JIRA config files in s3
 # ENVIRONMENT variable used for obtaining secrets in SSM
 ENV JIRA_CONFIG=dbconfig.xml \
     ENVIRONMENT=test   \
