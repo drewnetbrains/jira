@@ -108,8 +108,6 @@ TARGET_PROPERTY=4host-manager.org.apache.juli.AsyncFileHandler.directory
 sed -i "/${TARGET_PROPERTY}/d" ${JIRA_INSTALL}/conf/logging.properties
 echo "${TARGET_PROPERTY} = ${jira_logfile}" >> ${JIRA_INSTALL}/conf/logging.properties
 
-<<<<<<< HEAD
-=======
 # Download Atlassian required config files from s3
 /usr/bin/aws s3 cp s3://fathom-atlassian-ecs/jira/${JIRA_CONFIG} ${JIRA_HOME}
 
@@ -129,7 +127,6 @@ DATABASE_NAME=${DATABASE_NAME}
 
 # End of aws section
 
->>>>>>> aws
 if [ "$1" = 'jira' ] || [ "${1:0:1}" = '-' ]; then
   waitForDB
   /bin/bash ${JIRA_SCRIPTS}/launch.sh
