@@ -109,7 +109,7 @@ sed -i "/${TARGET_PROPERTY}/d" ${JIRA_INSTALL}/conf/logging.properties
 echo "${TARGET_PROPERTY} = ${jira_logfile}" >> ${JIRA_INSTALL}/conf/logging.properties
 
 # Download Atlassian required config files from s3
-/usr/bin/aws s3 cp s3://fathom-atlassian-ecs/jira/${JIRA_CONFIG} ${JIRA_HOME}
+/usr/bin/aws s3 cp s3://dsimpson-kubernetes/application/jira/${JIRA_CONFIG} ${JIRA_HOME}
 
 # Pull Atlassian secrets from parameter store:
 AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
@@ -117,7 +117,7 @@ AWSREGION=${AZ::-1}
 
 DATABASE_ENDPOINT=$(aws ssm get-parameters --names "${ENVIRONMENT}.atlassian.rds.db_host" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
 DATABASE_USER=$(aws ssm get-parameters --names "${ENVIRONMENT}.atlassian.rds.db_user" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
-DATABASE_PASSWORD=$(aws ssm get-parameters --names "${ENVIRONMENT}.atlassian.rds.password" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
+DATABASE_PASSWORD=$(aws ssm get-parameters --names "${ENVIRONMENT}.test.rds.password" --region ${AWSREGION} --with-decryption --query Parameters[0].Value --output text)
 DATABASE_NAME=${DATABASE_NAME}
 
 /bin/sed -i -e "s/DATABASE_ENDPOINT/$DATABASE_ENDPOINT/" \
