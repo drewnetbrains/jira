@@ -31,7 +31,7 @@ ENV PATH=$PATH:$JAVA_HOME/bin \
 # ENVIRONMENT variable used for obtaining secrets in SSM
 ENV JIRA_CONFIG=dbconfig.xml \
     ENVIRONMENT=test   \
-    DATABASE_NAME=jiradb
+    DATABASE_NAME=jiradb_dev
 
 COPY imagescripts ${JIRA_SCRIPTS}
 
